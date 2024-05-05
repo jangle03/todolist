@@ -1,0 +1,110 @@
+body{
+    /* background-color: rgb(224, 240, 255); */
+    margin-top: 80px;   
+    margin-left: 50px;
+    background-color: rgb(131, 174, 249);
+
+}
+#app {
+    width: 1200px;
+    /* width: auto; */
+    border-radius: 10px;
+    height: auto;
+    display: flex   ;
+    background-color: #fcf1f3;
+
+
+}
+* {
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 10px;
+
+}
+
+/* show */
+.show{
+    position: relative;
+}
+input{
+    border-radius: 3px;
+    height: 30px;
+}
+.Task{
+    width: 500px;
+}
+button.add{
+    background: pink;
+    height: 40px;
+    width: 60px;
+    border-radius: 10px;
+}
+button.add:hover{
+    background-color: #ff4362;
+    font-weight: bold;
+}
+button.delall{
+    background-color: #FDBEC9;
+    height: 30px;
+    border-radius: 8px; 
+    /* float: right; */
+}
+button.delall:hover{
+    background-color: #ff4362;
+    font-weight: bold;
+    padding-top: 3px;
+    transition: 0.3s;
+}
+
+ul {
+    list-style-type: none; 
+    display: block;
+}
+
+ul .material-symbols-outlined{
+    font-size: 20px;
+}
+ul li{
+    border-radius: 10px;
+}
+ul li:hover{
+    background-color: #ffc3c38b;
+    transition: 0.5s;
+}
+
+
+.icon_delete img{
+    width: 20px;
+}
+.icon_edit img {
+    width: 20px;
+}
+
+/* nut cập nhật */
+button.upload{
+    background-color: #FDBEC9;
+    height: 30px;
+    border-radius: 8px;
+}
+button.upload:hover{
+    background-color: #ff4362;
+    font-weight: bold;
+    padding-top: 3px;
+    transition: 0.3s;
+}
+
+.edit-form{
+   /* position: absolute; */
+   background-color: #e6c1bdd1;
+   /* margin-top: -200px; */
+   height: 300px;
+   border-radius: 10px;
+   margin-top: 50px;
+}
+
+.dem{
+    width: 200px;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: rgb(217, 250, 250);
+}
