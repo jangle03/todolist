@@ -1,126 +1,73 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>To Do List</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Đếm Ngày Yêu</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <body>
     <div class="container">
-        <h1 class="app-title">TO DO LIST</h1>
-        
-        <div id="app">
-            <div class="task-container">
-                <div class="add-task-container">
-                    <form @submit.prevent="addTask" class="add-task-form">
-                        <div class="form-group">
-                            <label for="topic">Topic:</label>
-                            <input type="text" id="topic" placeholder="Project name" v-model="newTask.topic">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="date">Deadline:</label>
-                            <input type="date" id="date" v-model="newTask.date">
-                        </div>
-                        
-                        <div class="form-group full-width">
-                            <label for="description">Description:</label>
-                            <input type="text" id="description" placeholder="Describe your task" class="task-description" v-model="newTask.description">
-                        </div>
-                        
-                        <button type="submit" class="btn add-btn">
-                            <i class="fas fa-plus"></i> Add Task
-                        </button>
-                    </form>
-                </div>
-
-                <div class="task-summary">
-                    <p class="task-count">You have <span class="count-highlight">{{ numberOfTasks }}</span> tasks to complete</p>
-                    <button type="submit" class="btn delete-all-btn" @click="deleteTaskAll">
-                        <i class="fas fa-trash-alt"></i> Delete All
-                    </button>
-                </div>
-                
-                <div class="task-list-container">
-                    <ul class="task-list">
-                        <li v-for="(task, index) in tasks" :key="index" class="task-item">
-                            <div class="task-checkbox">
-                                <input type="checkbox" :id="'task-' + index">
-                                <label :for="'task-' + index"></label>
-                            </div>
-                            
-                            <div class="task-content">
-                                <div class="task-header">
-                                    <h3 class="task-topic">{{ task.topic }}</h3>
-                                    <div class="task-deadline">
-                                        <i class="far fa-calendar-alt"></i>
-                                        <span>{{ task.date }}</span>
-                                    </div>
-                                </div>
-                                <p class="task-description">{{ task.description }}</p>
-                            </div>
-                            
-                            <div class="task-actions">
-                                <button class="action-btn edit-btn" @click="editTask(index)">
-                                    <i class="fas fa-edit"></i>
-                                </button>
-                                <button class="action-btn delete-btn" @click="deleteTask(index)">
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                            </div>
-                        </li>
-                    </ul>
+        <div class="love-counter">
+            <h1>Đếm Ngày Yêu</h1>
+            
+            <div class="photo-section">
+                <div class="photo-container">
+                    <div class="photo-upload" id="photo1">
+                        <label for="upload-photo1">
+                            <i class="fas fa-camera"></i>
+                            <span>Ảnh của bạn</span>
+                        </label>
+                        <input type="file" id="upload-photo1" accept="image/*">
+                    </div>
+                    <div class="heart-icon">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <div class="photo-upload" id="photo2">
+                        <label for="upload-photo2">
+                            <i class="fas fa-camera"></i>
+                            <span>Ảnh người ấy</span>
+                        </label>
+                        <input type="file" id="upload-photo2" accept="image/*">
+                    </div>
                 </div>
             </div>
-            
-            <!-- Edit Form Modal -->
-            <div v-if="showEditForm" class="modal">
-                <div class="modal-overlay" @click="showEditForm = false"></div>
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h2>Edit Task</h2>
-                        <button class="close-btn" @click="showEditForm = false">
-                            <i class="fas fa-times"></i>
-                        </button>
+
+            <div class="date-input">
+                <h3>Ngày chúng mình bắt đầu</h3>
+                <input type="datetime-local" id="start-date">
+                <button id="save-date">Lưu ngày</button>
+            </div>
+
+            <div class="counter-display">
+                <h2>Chúng mình đã yêu nhau</h2>
+                <div class="counter">
+                    <div class="count-box">
+                        <span id="days">0</span>
+                        <p>Ngày</p>
                     </div>
-                    
-                    <form @submit.prevent="saveEditedTask" class="edit-task-form">
-                        <div class="form-group">
-                            <label for="edit-topic">Topic:</label>
-                            <input type="text" id="edit-topic" v-model="newTask.topic">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="edit-date">Deadline:</label>
-                            <input type="date" id="edit-date" v-model="newTask.date">
-                        </div>
-                        
-                        <div class="form-group full-width">
-                            <label for="edit-description">Description:</label>
-                            <input type="text" id="edit-description" v-model="newTask.description" class="task-description">
-                        </div>
-                        
-                        <div class="form-actions">
-                            <button type="button" class="btn cancel-btn" @click="showEditForm = false">
-                                <i class="fas fa-times"></i> Cancel
-                            </button>
-                            <button type="submit" class="btn save-btn">
-                                <i class="fas fa-save"></i> Save Changes
-                            </button>
-                        </div>
-                    </form>
+                    <div class="count-box">
+                        <span id="hours">0</span>
+                        <p>Giờ</p>
+                    </div>
+                    <div class="count-box">
+                        <span id="minutes">0</span>
+                        <p>Phút</p>
+                    </div>
+                    <div class="count-box">
+                        <span id="seconds">0</span>
+                        <p>Giây</p>
+                    </div>
                 </div>
+            </div>
+
+            <div class="message">
+                <p id="love-message">Hãy nhập ngày bắt đầu tình yêu của bạn!</p>
             </div>
         </div>
     </div>
-    
-    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
-    <script src="main.js"></script>
+
+    <script src="script.js"></script>
 </body>
 </html>
